@@ -1,0 +1,56 @@
+2024-07-03
+Team project initiation by Boris Lambrev. Requested consensus on project to tackle.
+
+2024-07-04
+Further discussion within team on project considerations.
+
+2024-07-07
+Team is gravitating towards project 1 and project 3; project 2 excluded.
+
+2024-07-10
+Further discussion within team on project considerations. Consensus is to go with Project 1 after three in favour and two abstaining.
+
+2024-07-11
+Data dictionary work begun by Boris Lambrev.
+
+2024-07-12
+Reflection on previous team assignment that scores have been posted.
+Established MySQL as the server to be used.
+
+2024-07-15
+Initial version of Data Dictionary completed by Boris Lambrev.
+
+2024-07-16
+ERD & RDS work started by Boris Lambrev. Aligned on using tools, sticking to MS365 using our McGill credentials for easy collaboration.
+
+2024-07-21
+Vinay Maisuriya requests team meeting for work distribution.
+
+2024-07-23
+Wolf Koch creates team project raster for the assigned tasks; initiates group call.
+Tasks are now assigned for everyone.
+
+2024-07-25
+Boris Lambrev completed final rev of Data Dictionary. Vinay Maisuriya begins work on Create DB & Constraints SQL scripts in MySQL.
+
+2024-07-27
+Wolf Koch final review of Data Dictionary.
+Vinay Maisuriya completes of Create DB & Constraints SQL scripts.
+Wolf Koch completes review of Create DB & Constraints SQL scripts.
+Team reviews stored procedures.
+Olivia Lin begins work on Stored Procedures and Triggers SQL.
+
+2024-07-29
+Ostap Lyakh begins work on Views.
+Olivia Lin completes work on Stored Procedures and Triggers SQL.
+
+2024-07-30
+Wolf Koch completes review on Stored Procedures and Triggers SQL.
+
+2024-07-31
+Ostap Lyakh completes work on Views SQL.
+
+2024-08-01
+Wolf Koch completes review of Views SQL.
+Wolf Koch completes review of ERD.
+Wolf Koch completes review of RDS.

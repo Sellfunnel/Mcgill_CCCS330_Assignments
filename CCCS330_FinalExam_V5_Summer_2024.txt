@@ -1,0 +1,222 @@
+/*CCCS 330 Database Design & Business Application Development - Final Exam Summer 2024
+
+Your course assistant/teaching will join you around 6:30 p.m. to answer any questions you may have.
+
+INSTRUCTIONS:
+* This examination is CLOSED BOOK.
+* This examination consists of 10 multiple choice and 10 essay questions. Each question is worth 2 points
+* Answer all questions. Budget your time accordingly! 
+* Duration: 3 hours.
+
+Student Name: Olivia Lin
+Student ID: 261195054
+Section No.: CCCS-330-784 
+
+MULTIPLE CHOICES QUESTIONS
+Your answers go here 
+Q1. D
+Q2. D
+Q3. B
+Q4. B
+Q5. C
+Q6. D
+Q7. A
+Q8. D
+Q9. C
+Q10. D
+
+
+ESSAY QUESTIONS
+Your answers go here 
+Q11. */
+DELIMITER //
+
+CREATE PROCEDURE getLastnamePh(IN firstNameInput VARCHAR(255), OUT lastNameOutput VARCHAR(255))
+BEGIN
+    SELECT LastName INTO lastNameOutput
+    FROM Employees
+    WHERE FirstName = firstNameInput
+    ;
+END //
+
+DELIMITER
+;
+
+CALL getLastnamePh('John', @lastName)
+;
+SELECT @lastName
+;
+
+--Q12.
+
+SELECT 
+  PC.CustomerID, 
+  PC.ContactName, 
+  SO.OrderID
+FROM 
+  Sales.Customers AS PC
+LEFT JOIN 
+  Sales.Orders AS SO 
+ON 
+  PC.CustomerID = SO.CustomerID
+  ;
+
+--Q13. 
+
+SELECT 
+  P.ProductName, 
+  COUNT(*) AS 'OrderCount'
+FROM 
+  Production.Products AS P
+JOIN 
+  Sales.[Order Details] AS OD 
+ON 
+  P.ProductID = OD.ProductID
+WHERE 
+  P.UnitPrice > 50
+GROUP BY 
+  P.ProductName
+  ;
+
+--Q14.
+
+SELECT 
+    C.Country,
+    C.CustomerName,
+    COUNT(O.OrderID) AS NumberOfOrders
+FROM 
+    Sales.Customers AS C
+JOIN 
+    Sales.Orders AS O ON C.CustomerID = O.CustomerID
+GROUP BY 
+    C.Country, C.CustomerName
+HAVING 
+    COUNT(O.OrderID) > 15
+    ;
+
+--Q15.
+
+SELECT 
+    C.CustomerID, 
+    C.CompanyName, 
+    O.OrderID, 
+    O.OrderDate
+FROM 
+    Sales.Customers AS C
+JOIN 
+    Sales.Orders AS O ON C.CustomerID = O.CustomerID
+ORDER BY 
+    O.OrderDate DESC
+LIMIT 10
+;
+
+--Q16. 
+
+DELIMITER $$
+
+CREATE FUNCTION Sales.getLastOrdersForCustomerFn(customerID INT, numberOfOrders INT)
+RETURNS TABLE
+RETURN
+    SELECT 
+        O.OrderID AS SalesOrderID, 
+        O.OrderDate 
+    FROM 
+        Sales.Orders AS O
+    WHERE 
+        O.CustomerID = customerID
+    ORDER BY 
+        O.OrderDate DESC
+    LIMIT numberOfOrders $$
+
+DELIMITER
+;
+
+--Q17. 
+
+DELIMITER $$
+
+CREATE PROCEDURE Sales.getSalesPersonNamesPr(IN jobTitle VARCHAR(255))
+BEGIN
+    SELECT 
+        EmployeeID, 
+        FirstName, 
+        LastName 
+    FROM 
+        Employees
+    WHERE 
+        JobTitle = jobTitle;
+END $$
+
+DELIMITER
+;
+
+CALL Sales.getSalesPersonNamesPr('Sales Rep%');
+
+--Q18. 
+
+CREATE VIEW getIndividualsWithEmailView AS
+SELECT 
+    EmployeeID, 
+    Title, 
+    CONCAT(FirstName, ' ', LastName) AS Name, 
+    EmailAddress
+FROM 
+    Employees
+WHERE 
+    EmailAddress IS NOT NULL
+    ;
+
+--Q19. 
+
+SELECT 
+    CompanyName AS `CompanyName`,
+    CONCAT(Address, ' ', City) AS `Address City`,
+    Region AS `Region`,
+    PostalCode AS `PostalCode`,
+    Country AS `Country`,
+    'Customer' AS `Status`
+FROM 
+    Customers
+
+UNION
+
+SELECT 
+    CompanyName AS `CompanyName`,
+    CONCAT(Address, ' ', City) AS `Address City`,
+    Region AS `Region`,
+    PostalCode AS `PostalCode`,
+    Country AS `Country`,
+    'Supplier' AS `Status`
+FROM 
+    Suppliers
+
+UNION
+
+SELECT 
+    CONCAT(FirstName, ' ', LastName) AS `CompanyName`,
+    CONCAT(Address, ' ', City) AS `Address City`,
+    Region AS `Region`,
+    PostalCode AS `PostalCode`,
+    Country AS `Country`,
+    'Employee' AS `Status`
+FROM 
+    Employees
+    ;
+
+--Q20. 
+
+DELIMITER //
+
+CREATE PROCEDURE getProductNamesTr(IN VarPrice DECIMAL(10,2))
+BEGIN
+    SELECT CONCAT('Products less than ', CAST(VarPrice AS CHAR)) AS Message
+    ;
+
+    SELECT ProductName, UnitPrice
+    FROM Product
+    WHERE UnitPrice < VarPrice
+    ;
+END //
+
+DELIMITER
+;
